@@ -1,6 +1,6 @@
 import './App.css';
-import bell from './bell.svg';
-import logo from './Logo.svg';
+import bell from './images/bell.svg';
+import logo from './images/Logo.svg';
 
 function App() {
   return (
