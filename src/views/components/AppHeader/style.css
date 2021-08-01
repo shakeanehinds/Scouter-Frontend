@@ -1,0 +1,9 @@
+.body {
+    margin: 0;
+}
+
+.authModal {
+    width: 350px;
+    min-height: 450px;
+    z-index: 1000;
+}
