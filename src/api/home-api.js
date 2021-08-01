@@ -37,8 +37,8 @@ export const loginAsRecruiter = () => {
     const user = {
         companyName: 'MuffetEnterprises',
         companyEmail: 'muffetenterprises@gmail.com',
-        companyContactFirstName: 'Sherica',
-        companyContactLastName: 'Jackson',
+        firstName: 'Sherica',
+        lastName: 'Jackson',
         companyAddress: '124 Slipe Road, Off CrossRoads, Kingston 2'
     }
 
