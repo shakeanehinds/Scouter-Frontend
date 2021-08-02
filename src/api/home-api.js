@@ -30,7 +30,7 @@ export const loginAsApplicant = () => {
         token: "sdlkdslkklsew90jkljf88432WE$#$%RY^WEWSE#$%$%$%TERGEWDWE@#@$#$#RRG$REFREDF"
     }
 
-    localStorage.set('applicantUser', user);
+    localStorage.setItem('applicantUser', user);
     return user;
 }
 

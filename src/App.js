@@ -11,6 +11,7 @@ import {
 import { AppHeader } from './views/components/AppHeader/index';
 import { AppFooter } from './views/components/AppFooter/index';
 import { Home } from './views/pages/home/home';
+import { ApplicantSignup } from './views/pages/applicant-signup/index';
 
 
 
@@ -22,7 +23,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/">
-            <Home />
+            <ApplicantSignup />
           </Route>
 
         </Switch>

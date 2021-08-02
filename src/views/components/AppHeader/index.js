@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //import './style.css';
 import bell from '../../../images/bell.svg';
 import logo from '../../../images/Logo.svg';
-import { loginAsRecruiter, isAuthenticated } from '../../../api/home-api';
+import { loginAsRecruiter, loginAsApplicant, isAuthenticated } from '../../../api/home-api';
 
 
 export const AppHeader = () => {
@@ -17,10 +17,16 @@ export const AppHeader = () => {
         };
 
         const loginUser = () => {
-            setCurrentUser(loginAsRecruiter())
+            setCurrentUser({
+                userName: 'jessicaj',
+                firstName: 'Jessica',
+                lastName: 'James',
+                token: "sdlkdslkklsew90jkljf88432WE$#$%RY^WEWSE#$%$%$%TERGEWDWE@#@$#$#RRG$REFREDF"
+            });
         }
+
         return (
-            <div class="authModal" >
+            <div className="authModal" >
                 <input type='email' label='Email address' icon='email' value={this.state.email} onChange={handleChange.bind(this, 'email')} />
                 <input type='password' label='Password' name='password' icon='password' value={this.state.password} onChange={this.handleChange.bind(this, 'phone')} />
                 <button type="submit" onClick={loginUser('recruiter')} >Login</button>
@@ -29,10 +35,11 @@ export const AppHeader = () => {
     }
 
     const getLeftHeader = () => {
+        console.log(currentUser);
         return isAuthenticated() ? (
             <div className="flex justify-center w-max">
                 <img className="h-6 w-auto" src={bell} alt="Bell Icon"></img>
-                <h3 className="px-2">{currentUser.firstName + " " + currentUser.lastName}</h3>
+                <h3 className="px-2">Shericka Jackson</h3>
             </div>
         )
             :
