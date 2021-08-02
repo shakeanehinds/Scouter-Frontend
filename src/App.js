@@ -1,17 +1,34 @@
 import './App.css';
-import bell from './images/bell.svg';
-import logo from './images/Logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+  /*Link,
+  useRouteMatch,
+  useParams*/
+} from "react-router-dom";
+
+import { AppHeader } from './views/components/AppHeader/index';
+import { AppFooter } from './views/components/AppFooter/index';
+import { Home } from './views/pages/home/home';
+import { ApplicantSignup } from './views/pages/applicant-signup/index';
+
+
 
 function App() {
+  //const match = useRouteMatch();
   return (
-    <div id="App" className="bg-white">
-      <nav className="flex w-full bg-white justify-between items-center p-4">
-        <img src={logo}></img>
-        <div className="flex justify-center w-max">
-          <img className="h-6 w-auto" src={bell}></img>
-          <h3 className="px-2">Jessica James</h3>
-        </div>
-      </nav>
+    <div id="App" class="h-screen w-screen">
+      <AppHeader />
+      <Router>
+        <Switch>
+          <Route path="/">
+            <ApplicantSignup />
+          </Route>
+
+        </Switch>
+      </Router>
+      <AppFooter />
     </div>
   );
 }
