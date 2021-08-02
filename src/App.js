@@ -12,6 +12,7 @@ import { AppHeader } from './views/components/AppHeader/index';
 import { AppFooter } from './views/components/AppFooter/index';
 import { Home } from './views/pages/home/home';
 import AdminHome from './views/pages/home-admin/adminHome';
+import { ApplicantSignup } from './views/pages/applicant-signup/index';
 
 
 
@@ -23,7 +24,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/">
-            <Home />
+            <ApplicantSignup />
           </Route>
           <Route path="/admin">
             <AdminHome />
