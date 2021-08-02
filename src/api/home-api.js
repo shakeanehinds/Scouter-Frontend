@@ -27,7 +27,7 @@ export const loginAsApplicant = () => {
         userName: 'jessicaj',
         firstName: 'Jessica',
         lastName: 'James',
-        token: "sdlkdslkklsew90jkljf88432WE$#$%RY^WEWSE#$%$%$%TERGEWDWE@#@$#$#RRG$REFREDF"
+
     }
 
     localStorage.setItem('applicantUser', user);
