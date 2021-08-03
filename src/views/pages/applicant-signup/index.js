@@ -10,16 +10,18 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import { PersonalDetailsForm } from '../../components/PersonalDetailsForm/index';
+import { PersonalDetailsForm } from '../../components/PersonalDetailsForm/';
+import { signupAsApplicant } from '../../../api/home-api';
 import { EmploymentHistoryForm } from '../../components/EmploymentHistoryForm/index';
 import { EducationForm } from '../../components/EducationForm/index';
+import { useForm } from "react-hook-form";
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                Scouter
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -80,11 +82,15 @@ function getStepContent(step) {
 }
 
 export function ApplicantSignup() {
+    const { handleSubmit } = useForm();
+    const onSubmit = values => signupAsApplicant(values);
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
+
     };
 
     const handleBack = () => {
@@ -94,18 +100,12 @@ export function ApplicantSignup() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="absolute" color="default" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Company name
-                    </Typography>
-                </Toolbar>
-            </AppBar>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
-                        Applicant
+                        Signup as an Applicant
                     </Typography>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                     <Stepper activeStep={activeStep} className={classes.stepper}>
                         {steps.map((label) => (
                             <Step key={label}>
@@ -116,12 +116,12 @@ export function ApplicantSignup() {
                     <React.Fragment>
                         {activeStep === steps.length ? (
                             <React.Fragment>
+
                                 <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
+                                        Thank you for signing up. It's time to reap rewards!
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your profile. We have emailed your order confirmation, and will
-                                    send you an update when your order has shipped.
+                                        With your new scouter account, you can now view job recommendations based on your skillset. Click 'Update Profile' from Profile at anytime to update your profile.
                                 </Typography>
                             </React.Fragment>
                         ) : (
@@ -136,15 +136,17 @@ export function ApplicantSignup() {
                                     <Button
                                         variant="contained"
                                         color="primary"
+                                                type="submit"
                                         onClick={handleNext}
                                         className={classes.button}
                                     >
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                                {activeStep === steps.length - 1 ? 'Complete Signup' : 'Next'}
                                     </Button>
                                 </div>
                             </React.Fragment>
                         )}
                     </React.Fragment>
+                    </form>
                 </Paper>
                 <Copyright />
             </main>

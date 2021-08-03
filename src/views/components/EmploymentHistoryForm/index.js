@@ -4,90 +4,88 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import { DragHandle } from '@material-ui/icons';
 
-export function EmploymentHistoryForm() {
+export const EmploymentHistoryForm = () => {
+    const generateWorkHistoryId = () => {
+        const numHistory = document.body.querySelector('[id="employmentContainer"]')
+    }
+    const handleAddWorkHistory = () => {
+        const workHistoryId = generateWorkHistoryId();
+    }
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
                 Employment History
             </Typography>
+            <div id="employmentContainer">
+                {/* <Grid item xs={12} sm={12}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleAddWorkHistory}>
+                        <Icon color="primary">add</Icon>
+                        Add New Work History
+                    </Button>
+    </Grid>*/}
+            </div>
             <Grid container spacing={3}>
+                <Grid item xs={12} sm={12}>
+                    <TextField
+                        id="employmentStatus"
+                        name="employmentStatus"
+                        label="Current Employment Status"
+                        fullWidth />
+                </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="firstName"
-                        name="firstName"
-                        label="First name"
+                        id="placeOfEmployment"
+                        name="placeOfEmployment"
+                        label="Place of Employment"
                         fullWidth
-                        autoComplete="given-name"
+                        autoComplete="Sure-fix Software Solutions"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="lastName"
-                        name="lastName"
-                        label="Last name"
+                        id="employmentType"
+                        name="employmentType"
+                        label="Employment Type"
                         fullWidth
-                        autoComplete="family-name"
+                        autoComplete="FULL_TIME"
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
                         required
-                        id="address1"
-                        name="address1"
-                        label="Address line 1"
+                        id="employmentStartDate"
+                        name="employmentStartDate"
+                        label="Start Date"
                         fullWidth
-                        autoComplete="shipping address-line1"
+                        autoComplete="2011-01-03"
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        id="address2"
-                        name="address2"
-                        label="Address line 2"
+                        id="employmentEndDate"
+                        name="employmentEndDate"
+                        label="End Date"
                         fullWidth
-                        autoComplete="shipping address-line2"
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                         required
-                        id="city"
-                        name="city"
-                        label="City"
+                        id="remarks"
+                        name="remarks"
+                        label="Comments"
                         fullWidth
-                        autoComplete="shipping address-level2"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Zip / Postal code"
-                        fullWidth
-                        autoComplete="shipping postal-code"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="shipping country"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                        label="Use this address for payment details"
+                        autoComplete="It was a good working experience"
                     />
                 </Grid>
             </Grid>
