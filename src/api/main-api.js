@@ -1,17 +1,28 @@
 import * as formApi from './form-api';
 import * as profileApi from './profile-api';
 import * as applicantApi from './applicant-api';
-import * as homeApi from './home-api';
 
 //PRIMARY CONSTANTS
 export const BASE_URL = "http://scouter.point876solutions.com";
 
-export const REQUEST_HEADERS = {
+export const POST_REQUEST_HEADERS = {
     headers: {
         'Cache-Control': 'no-cache',
         'Content-Type': 'application/json',
         'Postman-Token': '<calculated when request is sent>',
         'Content-Length': '<calculated when request is sent>',
+        'Host': '<calculated when request is sent>',
+        'User-Agent': 'PostmanRuntime/7.28.3',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive'
+    }
+};
+
+export const GET_REQUEST_HEADERS = {
+    headers: {
+        'Cache-Control': 'no-cache',
+        'Postman-Token': '<calculated when request is sent>',
         'Host': '<calculated when request is sent>',
         'User-Agent': 'PostmanRuntime/7.28.3',
         'Accept': '*/*',
@@ -37,4 +48,4 @@ export const fetchJSON = (path, fetchOptions, positiveStatus, resolveErrorFunc) 
         });
 };
 
-export { formApi, profileApi, applicantApi, homeApi };
+export { formApi, profileApi, applicantApi };
