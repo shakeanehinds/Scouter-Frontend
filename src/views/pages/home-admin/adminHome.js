@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import logo from '../../../images/Logo.svg';
 import { Radar } from 'react-chartjs-2';
 import bell from '../../../images/bell.svg';
+
 const AdminHome = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPosts, setSelectedPosts] = useState([]);
+
+  console.log('admin');
 
   const data = {
     labels: ['Education', 'Skills', 'Work Experience'],

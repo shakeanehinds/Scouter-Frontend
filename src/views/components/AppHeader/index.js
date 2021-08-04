@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //import './style.css';
 import bell from '../../../images/bell.svg';
 import logo from '../../../images/Logo.svg';
-import { loginAsRecruiter, loginAsApplicant, isAuthenticated } from '../../../api/home-api';
+import { formApi, profileApi, applicationApi } from '../../../api/main-api';
 
 
 export const AppHeader = () => {
@@ -36,7 +36,8 @@ export const AppHeader = () => {
 
     const getLeftHeader = () => {
         console.log(currentUser);
-        return isAuthenticated() ? (
+        const authenticated = true;
+        return authenticated ? (
             <div className="flex justify-center w-max">
                 <img className="h-6 w-auto" src={bell} alt="Bell Icon"></img>
                 <h3 className="px-2">Shericka Jackson</h3>

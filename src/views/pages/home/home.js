@@ -1,6 +1,7 @@
 import React from 'react';
-//import { HomeInfoComponent } from '../../components/HomeInfoComponent/index';
-//import * as api from '../../../api/home-api';
+import { AppHeader } from '../../components/AppHeader/index';
+import { AppFooter } from '../../components/AppFooter/index';
+
 
 
 ///render top level errors, warning and info as banner or modal
@@ -8,6 +9,7 @@ import React from 'react';
 export const Home = () => {
     return (
         <div class="home w-10 h-screen">
+            <AppHeader />
             <div class="banner" id="banner">
                 |<div class="slogan">Find your perfect fit</div>
                 <div class="slogan-subtitle">Scouter takes the tedious out of recruitment from start to finish.</div>
@@ -26,6 +28,7 @@ export const Home = () => {
                     ctaAction={api.signupAsApplicant()}
              />*/}
             </div>
+            <AppFooter />
         </div>
     );
 }

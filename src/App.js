@@ -8,8 +8,6 @@ import {
   useParams*/
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { AppHeader } from './views/components/AppHeader/index';
-import { AppFooter } from './views/components/AppFooter/index';
 import { Home } from './views/pages/home/home';
 import AdminHome from './views/pages/home-admin/adminHome';
 
@@ -20,19 +18,17 @@ function App() {
   //const match = useRouteMatch();
   return (      
     <QueryClientProvider client={queryClient}>
-      <div id="App" class="h-screen w-screen">
-      <AppHeader />
+      <div id="App" className="h-screen w-screen">
       <Router>
         <Switch>
-          <Route path="/">
+            <Route exact path="/">
               <Home />
           </Route>
           <Route path="/admin">
             <AdminHome />
             </Route>
         </Switch>
-      </Router>
-      <AppFooter />
+        </Router>
     </div>
     </QueryClientProvider>
   );

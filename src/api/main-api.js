@@ -1,6 +1,6 @@
 import * as formApi from './form-api';
 import * as profileApi from './profile-api';
-import * as applicantApi from './applicant-api';
+import * as applicantApi from './application-api';
 
 //PRIMARY CONSTANTS
 export const BASE_URL = "http://scouter.point876solutions.com";
