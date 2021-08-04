@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Home } from './views/pages/home/home';
+import { ApplicantHome } from './views/pages/applicant-home/applicantHome';
 import AdminHome from './views/pages/home-admin/adminHome';
 
 const queryClient = new QueryClient()
@@ -27,8 +28,8 @@ function App() {
             <Route path="/admin">
               <AdminHome />
             </Route>
-            <Route path="/admin">
-              <AdminHome />
+            <Route path="/applicant">
+              <ApplicantHome />
             </Route>
           </Switch>
         </Router>

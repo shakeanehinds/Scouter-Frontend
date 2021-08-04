@@ -1,8 +1,22 @@
 import React from 'react';
 //import './style.css';
 import logo from '../../../images/Logo.svg';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 
 
+const Copyright = () => {
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://material-ui.com/">
+                Scouter
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
 export const AppFooter = () => {
     return (
@@ -25,7 +39,7 @@ export const AppFooter = () => {
                 </div>
                 <div id="footer-copyright" className="flex flex-start content-around">
                     <i className="far fa-copyright" />
-                    <span>2020 Scouter Ltd. All Rights Reserved</span>
+                    <Copyright />
                 </div>
             </div>
         </footer>
