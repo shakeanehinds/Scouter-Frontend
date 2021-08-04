@@ -19,17 +19,20 @@ function App() {
   return (      
     <QueryClientProvider client={queryClient}>
       <div id="App" className="h-screen w-screen">
-      <Router>
-        <Switch>
+        <Router>
+          <Switch>
             <Route exact path="/">
               <Home />
-          </Route>
-          <Route path="/admin">
-            <AdminHome />
             </Route>
-        </Switch>
+            <Route path="/admin">
+              <AdminHome />
+            </Route>
+            <Route path="/admin">
+              <AdminHome />
+            </Route>
+          </Switch>
         </Router>
-    </div>
+      </div>
     </QueryClientProvider>
   );
 }
