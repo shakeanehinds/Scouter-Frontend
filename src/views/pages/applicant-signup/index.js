@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { PersonalDetailsForm } from '../../components/PersonalDetailsForm/';
-import { signupAsApplicant } from '../../../api/home-api';
+//import { signupAsApplicant } from '../../../api/home-api';
 import { EmploymentHistoryForm } from '../../components/EmploymentHistoryForm/index';
 import { EducationForm } from '../../components/EducationForm/index';
 import { useForm } from "react-hook-form";
@@ -97,6 +97,14 @@ export function ApplicantSignup() {
         setActiveStep(activeStep - 1);
     };
 
+
+    // console.log(applicant ?? 'no applicant');
+
+    //temp
+
+
+
+
     return (
         <React.Fragment>
             <CssBaseline />
@@ -123,6 +131,7 @@ export function ApplicantSignup() {
                                 <Typography variant="subtitle1">
                                         With your new scouter account, you can now view job recommendations based on your skillset. Click 'Update Profile' from Profile at anytime to update your profile.
                                 </Typography>
+                                    {signupAsApplicant(this)}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
