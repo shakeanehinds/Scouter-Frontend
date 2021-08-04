@@ -16,21 +16,6 @@ export const fetchApplicantJobApplications = (applicantId) => {
     return responseData; //Rreturns list of applications with 200
 }
 
-export const fetchApplicantApplication = (applicantId) => {
-    console.log('applicantId from form ', applicantId);
-    applicantId = 5;
-
-    const fetchOptions = {
-        method: 'POST',
-        ...GET_REQUEST_HEADERS
-    }
-
-    const path = `/application?applicantId=${applicantId}`;
-
-    const responseData = fetchJSON(path, fetchOptions);
-    return responseData; //Rreturns list of applications with 200;
-} // on hold
-
 export const submitApplication = (applicantId, companyId, jobPostId) => {
     console.log(`applying \n applicant ${applicantId} \n companyId ${companyId} \n jobPostId ${jobPostId}`);
     const fetchOptions = {
