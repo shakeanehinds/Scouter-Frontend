@@ -36,6 +36,7 @@ export const EmploymentHistoryForm = () => {
                 <Grid item xs={12} sm={12}>
                     <TextField
                         id="employmentStatus"
+                        required
                         name="employmentStatus"
                         label="Current Employment Status"
                         fullWidth />
@@ -66,6 +67,7 @@ export const EmploymentHistoryForm = () => {
                         id="employmentStartDate"
                         name="employmentStartDate"
                         label="Start Date"
+                        type="date"
                         fullWidth
                         autoComplete="2011-01-03"
                     />
@@ -75,12 +77,13 @@ export const EmploymentHistoryForm = () => {
                         id="employmentEndDate"
                         name="employmentEndDate"
                         label="End Date"
+                        type="date"
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12} sm={12}>
                     <TextField
-                        required
+
                         id="remarks"
                         name="remarks"
                         label="Comments"

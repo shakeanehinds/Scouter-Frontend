@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../../../images/Logo.svg';
+import './style.css';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -17,7 +18,7 @@ const Copyright = () => {
 
 export const AppFooter = () => {
     return (
-        <footer className="footer flex flex-wrap content-between w-screen bg-gray-300">
+        <footer className="w-screen bottom-0 right-0 left-0 bg-gray-300">
             <div id="footer-promotional" className="flex flex-col flex-wrap content-start">
                 <img src={logo} alt="Scouter Logo"></img>
                 <div>Find your right fit with Scouter</div>

@@ -47,6 +47,7 @@ export function PersonalDetailsForm() {
                         id="dob"
                         name="dateOfBirth"
                         label="Date of Birth"
+                        type="date"
                         fullWidth
                         autoComplete="dd/mm/yyyy"
                     />
@@ -104,12 +105,7 @@ export function PersonalDetailsForm() {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveAgreement" value="yes" />}
-                        label="I have read and understood the Terms of Use of Scouter."
-                    />
-                </Grid>
+
             </Grid>
         </React.Fragment>
     );

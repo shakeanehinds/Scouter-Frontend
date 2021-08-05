@@ -27,6 +27,7 @@ export function EducationForm() {
                         required
                         id="attainment"
                         name="attainment"
+                        type="date"
                         label="Award Conferred"
                         fullWidth
                         autoComplete="DIPLOMA"
@@ -37,6 +38,7 @@ export function EducationForm() {
                         required
                         id="institution"
                         name="institution"
+                        type="date"
                         label="Institution"
                         fullWidth
                         autoComplete="Montego Bay Commuinity College"

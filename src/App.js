@@ -19,7 +19,7 @@ function App() {
   //const match = useRouteMatch();
   return (      
     <QueryClientProvider client={queryClient}>
-      <div id="App" className="h-screen w-screen">
+      <div id="App" className="flex flex-col min-h-screen w-screen">
         <Router>
           <Switch>
             <Route exact path="/">
