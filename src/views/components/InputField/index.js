@@ -22,7 +22,7 @@ export const InputField = ({
         <div>
             <input type={fieldType} label={fieldName} name={fieldName} value={fieldValue} required={props.required ?? false} onChange={validateFieldValue(this.value, this.type)} />
             {error.errorState ?
-                <div class="input-field-error">{error.errorMessage}</div>
+                <div className="input-field-error">{error.errorMessage}</div>
                 :
                 <div></div>
             }

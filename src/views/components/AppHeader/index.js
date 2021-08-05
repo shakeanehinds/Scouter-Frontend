@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import './style.css';
 import bell from '../../../images/bell.svg';
 import logo from '../../../images/Logo.svg';
 import { formApi, profileApi, applicationApi } from '../../../api/main-api';
