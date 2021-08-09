@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import bell from '../../../images/bell.svg';
 import logo from '../../../images/Logo.svg';
-import { formApi, profileApi, applicationApi } from '../../../api/main-api';
+
 import { Typography } from '@material-ui/core';
 
 

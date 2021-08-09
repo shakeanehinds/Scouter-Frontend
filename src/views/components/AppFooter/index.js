@@ -18,15 +18,15 @@ const Copyright = () => {
 
 export const AppFooter = () => {
     return (
-        <footer className="w-screen bottom-0 right-0 left-0 bg-gray-300">
+        <footer className="absolute w-screen bottom-0 right-0 left-0 bg-gray-300">
             <div id="footer-promotional" className="flex flex-col flex-wrap content-start">
                 <img src={logo} alt="Scouter Logo"></img>
                 <div>Find your right fit with Scouter</div>
             </div>
             <div id="footer-documents" className="flex flex-wrap content-around">
-                <a href="/#" label="Privacy Policy" className="underline" />
+                <span>Privacy Policy</span>
                 |
-                <a href="/#" label="Terms of Use" className="underline" />
+                <span>TTerms of Use</span>
             </div>
             <div id="footer-contact" className="flex flex-col flex-wrap content-center">
                 <div id="footer-socials" className="flex flex-wrap content-between">

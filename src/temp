@@ -125,3 +125,419 @@ const AdminHome = () => {
   );
 };
 export default AdminHome;
+
+
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Stepper from '@material-ui/core/Stepper';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router';
+import { AppFooter } from '../../components/AppFooter';
+import { AppHeader } from '../../components/AppHeader';
+import { EducationForm } from '../../components/EducationForm/index';
+import { EmploymentHistoryForm } from '../../components/EmploymentHistoryForm/index';
+
+
+const useStyles = makeStyles((theme) => ({
+    appBar: {
+        position: 'relative',
+    },
+    layout: {
+        width: 'auto',
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+            width: 600,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+    },
+    paper: {
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+        padding: theme.spacing(2),
+        [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+            marginTop: theme.spacing(6),
+            marginBottom: theme.spacing(6),
+            padding: theme.spacing(3),
+        },
+    },
+    stepper: {
+        padding: theme.spacing(3, 0, 5),
+    },
+    buttons: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    button: {
+        marginTop: theme.spacing(3),
+        marginLeft: theme.spacing(1),
+    },
+}));
+
+const homeStages = {
+    signup: 'SIGNUP',
+    login: 'LOGIN',
+    dashboard: 'DASHBOARD',
+    profile: 'PROFILE',
+    application: 'APPLICATION'
+};
+
+const defaultState = {
+    homeStage: homeStages.signup,
+    userId: Math.random(10)
+}
+
+export const ApplicantHome = () => {
+    const history = useHistory();
+
+    const [homeState, setHomeState] = useState(defaultState);
+    const param = {
+        'homeState': [homeState, setHomeState]
+    };
+
+    const getHomeContent = () => {
+
+        switch (homeState.homeStage) {
+            case homeStages.signup:
+                return <ApplicantSignup homeState={param} />
+
+            case homeStages.login:
+                console.log('login not working');
+                break;
+           /* case homeStages.profile:
+                return <ApplicantProfile homeState={param} />
+
+            case homeStages.dashboard:
+                return <ApplicantDashboard homeState={param} />
+
+            case homeStages.application:
+                return <ApplicantApplications homeState={param} />*/
+
+            default:
+                history.pushState("/");
+
+        }
+    }
+
+    return (
+        <React.Fragment>
+            <div className="w-10 h-full align-middle flex flex-col content-between">
+                <CssBaseline />
+                {console.log('applicant home')}
+                <AppHeader />
+                <Paper>
+                    {getHomeContent()}
+                </Paper>
+                <AppFooter />
+
+            </div>
+        </React.Fragment>
+    );
+
+}
+
+
+
+//Applicant Signup
+
+const signupSteps = ['Personal Details', 'Employment History', 'Education'];
+
+function getStepContent(step) {
+    switch (step) {
+        case 0:
+            return (
+                <React.Fragment>
+                    <Typography variant="h6" gutterBottom>
+                        Personal Details
+                    </Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                required
+                                id="firstName"
+                                name="firstName"
+                                label="First name"
+                                fullWidth
+                                autoComplete="given-name"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                id="middleName"
+                                name="middleName"
+                                label="Middle name"
+                                fullWidth
+                                autoComplete="family-name"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                required
+                                id="lastName"
+                                name="lastName"
+                                label="Last name"
+                                fullWidth
+                                autoComplete="family-name"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="dob"
+                                name="dateOfBirth"
+                                label="Date of Birth"
+                                type="date"
+                                fullWidth
+                                autoComplete="dd/mm/yyyy"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="nationality"
+                                name="nationality"
+                                label="Nationality"
+                                fullWidth
+                                autoComplete="Jamaican"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="streetNumber"
+                                name="streetNumber"
+                                label="Address line 1"
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="streetName"
+                                name="streetName"
+                                label="Address line 2"
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="city"
+                                name="city"
+                                label="City"
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="parish"
+                                name="county"
+                                label="State/Parish/Region"
+                                fullWidth />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="country"
+                                name="country"
+                                label="Country"
+                                fullWidth
+                            />
+                        </Grid>
+
+                    </Grid>
+                </React.Fragment>
+            );
+        case 1:
+            return <EmploymentHistoryForm />;
+        case 2:
+            return <EducationForm />;
+        default:
+            throw new Error('Unknown step');
+    }
+}
+
+export const ApplicantSignup = ({ homeState }) => {
+    const useStyles = makeStyles((theme) => ({
+        appBar: {
+            position: 'relative',
+        },
+        layout: {
+            width: 'auto',
+            marginLeft: theme.spacing(2),
+            marginRight: theme.spacing(2),
+            [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+                width: 600,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+            },
+        },
+        paper: {
+            marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3),
+            padding: theme.spacing(2),
+            [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+                marginTop: theme.spacing(6),
+                marginBottom: theme.spacing(6),
+                padding: theme.spacing(3),
+            },
+        },
+        stepper: {
+            padding: theme.spacing(3, 0, 5),
+        },
+        buttons: {
+            display: 'flex',
+            justifyContent: 'flex-end',
+        },
+        button: {
+            marginTop: theme.spacing(3),
+            marginLeft: theme.spacing(1),
+        },
+        buttonLeft: {
+            marginTop: theme.spacing(3),
+            marginLeft: theme.spacing(1),
+            alignSelf: 'flex-start'
+        }
+    }));
+    const { handleSubmit } = useForm();
+    const onSubmit = values => { console.log('submit values ', values) };
+
+    const classes = useStyles();
+    const [activeStep, setActiveStep] = React.useState(0);
+
+    const handleNext = () => {
+        setActiveStep(activeStep + 1);
+
+    };
+
+    const handleBack = () => {
+        setActiveStep(activeStep - 1);
+    };
+
+    const goToDashboard = () => {
+        const newState = [...homeState];
+        newState[0] = homeStages.dashboard;
+        homeState[1](newState);
+    }
+
+
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <main className={classes.layout}>
+                <Paper className={classes.paper}>
+                    <Typography component="h1" variant="h4" align="center">
+                        Signup as an Applicant
+                    </Typography>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Stepper activeStep={activeStep} className={classes.stepper}>
+                            {signupSteps.map((label) => (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        <React.Fragment>
+                            {activeStep === signupSteps.length ? (
+                                <React.Fragment>
+
+                                    <Typography variant="h5" gutterBottom>
+                                        Thank you for signing up. It's time to reap rewards!
+                                    </Typography>
+                                    <Typography variant="subtitle1">
+                                        With your new scouter account, you can now view job recommendations based on your skillset. Click 'Update Profile' from Profile at anytime to update your profile.
+                                    </Typography>
+                                    <Button onClick={goToDashboard} className={classes.button}>
+                                        See My Dashbaord
+                                    </Button>
+                                </React.Fragment>
+                            ) : (
+                                <React.Fragment>
+                                    {getStepContent(activeStep)}
+                                    <div className={classes.buttons}>
+
+                                        {activeStep !== 0 && (
+                                            <Button onClick={handleBack} className={classes.button}>
+                                                Back
+                                            </Button>
+                                        )}
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            type="submit"
+                                            onClick={handleNext}
+                                            className={classes.button}
+                                        >
+                                                {activeStep === signupSteps.length - 1 ? 'Complete Signup' : 'Next'}
+                                        </Button>
+                                    </div>
+                                </React.Fragment>
+                            )}
+                        </React.Fragment>
+                    </form>
+                </Paper>
+            </main>
+        </React.Fragment>
+    );
+} 
+
+import React from 'react';
+import { AppHeader } from '../../components/AppHeader/index';
+import { AppFooter } from '../../components/AppFooter/index';
+import { HomeInfoComponent } from '../../components/HomeInfoComponent/index';
+import { useHistory } from "react-router-dom";
+
+
+
+///render top level errors, warning and info as banner or modal
+
+export const Home = () => {
+    const history = useHistory();
+
+    const goToAdminHome = () => {
+        history.push('/admin');
+    }
+
+    const goToApplicantSignup = () => {
+        history.push('/applicant');
+    }
+
+    return (
+        <div className="home w-screen h-screen flex flex-col content-center p-0">
+            <AppHeader />
+            <div className="px-24">
+                <div className="w-full banner flex flex-col content-around" id="banner">
+                    |<div className="slogan w-full text-8x1">Find your perfect fit</div>
+                    <div className="slogan-subtitle w-full text 4x1">Scouter takes the tedious out of recruitment from start to finish.</div>
+            </div>
+                <div className="home-cta-container">
+                    <HomeInfoComponent
+                    title="Find great talent"
+                    subtitle="It's time to stop worrying about filtering unqualified and uninterested talent. Join Scouter today!"
+                    ctaText="Start Recruiting"
+                        ctaAction={goToAdminHome}
+                        image={"https://i.ibb.co/2tNPgrt/1.jpg"}
+                />
+                <HomeInfoComponent
+                    title="Find great jobs"
+                    subtitle="It's time to stop worrying about filtering through job applications that don't match your skillset.!"
+                    ctaText="Start Finding Jobs"
+                        ctaAction={goToApplicantSignup}
+                        image={"https://i.ibb.co/nwdHqsN/2.jpg"}
+                    />
+                </div>
+
+            </div>
+            <AppFooter />
+        </div>
+    );
+}

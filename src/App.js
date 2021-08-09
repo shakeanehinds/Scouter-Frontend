@@ -8,8 +8,8 @@ import {
   useParams*/
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Home } from './views/pages/home/home';
-import { ApplicantHome } from './views/pages/applicant-home/applicantHome';
+import { Home } from './views/pages/home/index';
+import { ApplicantHome } from './views/pages/applicant-home/index';
 import AdminHome from './views/pages/home-admin/adminHome';
 
 const queryClient = new QueryClient()
