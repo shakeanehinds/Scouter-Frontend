@@ -330,6 +330,7 @@ export const ApplicantSignup = () => {
         1: new Date()
     });
     const handleEmploymentStartDateChange = (date, id) => {
+        console.log(date);
         const dates = { ...employmentStartDates };
         dates[id] = date;
         setEmploymentStartDates(dates);
@@ -366,16 +367,19 @@ export const ApplicantSignup = () => {
     };
 
     const [propectiveEmpType, setPropectiveEmpType] = React.useState('ALL');
-    const handleProspectiveEmpTypeChange = (value) => {
-        const typeEmp = Object.keys(PROSPECTIVE_EMPLOYMENT_TYPE).find(key => PROSPECTIVE_EMPLOYMENT_TYPE[key] === value);
+    const handleProspectiveEmpTypeChange = (pol) => {
+        const typeEmp = pol.target.value; //Object.keys(PROSPECTIVE_EMPLOYMENT_TYPE).find(key => PROSPECTIVE_EMPLOYMENT_TYPE[key] === value);
         setPropectiveEmpType(typeEmp);
     };
 
-    const [empStatus, setPropectiveEmpStatus] = React.useState('ALL');
+    const [empStatus, setEmpStatus] = React.useState('ALL');
     const handleEmploymentStatusChange = (event) => {
-        const typeEmp = Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === event.target.value);
-        setPropectiveEmpStatus(typeEmp);
+
+        //const typeEmp = Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === event.target.value);
+
+        setEmpStatus(event.target.value);
     };
+
 
     const [employmentTypes, setEmploymentTypes] = React.useState({
         0: "",
@@ -383,7 +387,7 @@ export const ApplicantSignup = () => {
     });
     const handleEmploymentTypeChange = (empType, id) => {
         const empTypes = { ...employmentTypes };
-        empTypes[id] = Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === empType.target.value);
+        empTypes[id] = empType.target.value; //Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === empType.target.value);
         setEmploymentTypes(empTypes);
     };
 
@@ -392,8 +396,9 @@ export const ApplicantSignup = () => {
         1: ""
     });
     const handleEmploymentPlaceChange = (empType, id) => {
+        console.log(placeOfEmployments[0]);
         const empTypes = { ...placeOfEmployments };
-        empTypes[id] = empType;
+        empTypes[id] = empType.target.value;
         setPlaceOfEmployments(empTypes);
     };
 
@@ -403,7 +408,7 @@ export const ApplicantSignup = () => {
     });
     const upDateInstitutions = (empType, id) => {
         const empTypes = { ...institutions };
-        empTypes[id] = empType;
+        empTypes[id] = empType.target.value;
         setInstitutions(empTypes);
     };
 
@@ -413,7 +418,7 @@ export const ApplicantSignup = () => {
     });
     const handleEducationLevelChange = (edLevel, id) => {
         const edLevels = { ...educationLevels };
-        edLevels[id] = Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === edLevel.target.value);
+        edLevels[id] = edLevel.target.value; // Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === edLevel.target.value);
         setEducationLevels(edLevels);
     };
 
@@ -423,7 +428,7 @@ export const ApplicantSignup = () => {
     });
     const handleEducationAttainmentChange = (attainment, id) => {
         const attainments = { ...educationAttainmentss };
-        attainments[id] = Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === attainment.target.value);
+        attainments[id] = attainment.target.value; //Object.keys(EMPLOYMENT_STATUS).find(key => EMPLOYMENT_STATUS[key] === attainment.target.value);
         setEducationAttainments(attainments);
     };
 
@@ -431,6 +436,15 @@ export const ApplicantSignup = () => {
     const updateNationality = (event) => {
 
         setNationality(event.target.value);
+    }
+
+    const [comments, setComments] = React.useState({
+        0: "",
+        1: ""
+    });
+    const updateComments = (event) => {
+
+        setComments(event.target.value);
     }
 
 
@@ -499,7 +513,7 @@ export const ApplicantSignup = () => {
                                             margin="normal"
                                             id="dob"
                                             label="Date of Birth"
-                                            format="dd/MM/yyyy"
+                                            format="dd-MM-yyyy"
                                             value={selectedDate}
                                             onChange={(value) => handleDateChange(value)}
                                             KeyboardButtonProps={{
@@ -560,7 +574,6 @@ export const ApplicantSignup = () => {
                                         id="city"
                                         label="City"
                                         fullWidth
-                                        city
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -693,6 +706,8 @@ export const ApplicantSignup = () => {
                                         label="Comment"
                                         fullWidth
                                         required
+                                        value={comments[0]}
+                                        onChange={(value) => updateComments(value, 0)}
                                     />
 
                                 </Grid>
@@ -774,6 +789,8 @@ export const ApplicantSignup = () => {
                                         label="Comment"
                                         fullWidth
                                         required
+                                        value={comments[1]}
+                                        onChange={(value) => updateComments(value, 1)}
                                     />
 
                                 </Grid>
