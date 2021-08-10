@@ -401,7 +401,7 @@ const AdminHome = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `http://scouter.point876solutions.com/jobPosting/`
+          `https://scouter.point876solutions.com/jobPosting/`
         );
         const json = await response.json();
         setPosts(json);

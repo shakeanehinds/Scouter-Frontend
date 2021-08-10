@@ -4,14 +4,14 @@ import React from 'react';
 import AddressCard from '../address_card';
 
 export default function JobCard({ job, applicantId }) {
-  const baseUrl = 'http://scouter.point876solutions.com';
+  const baseUrl = 'https://scouter.point876solutions.com';
 
   const { company, jobPosting } = job;
 
   const applyForJob = () => {
     axios
       .post(
-        `http://scouter.point876solutions.com/application?applicantId=${applicantId}&companyId=${company.id}&jobPostId=${jobPosting.id}`
+        `https://scouter.point876solutions.com/application?applicantId=${applicantId}&companyId=${company.id}&jobPostId=${jobPosting.id}`
       )
       .then((resp) => {
         alert('Applied successfully.');

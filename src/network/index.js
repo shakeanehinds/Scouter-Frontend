@@ -66,22 +66,22 @@ const randomJob = {
 const randomCompany = {};
 
 export function getCompanies() {
-  return axios.get('http://scouter.point876solutions.com/company');
+  return axios.get('https://scouter.point876solutions.com/company');
 }
 
 export function getCompanyDetails(id) {
-  return axios.get(`http://scouter.point876solutions.com/company/${id}`);
+  return axios.get(`https://scouter.point876solutions.com/company/${id}`);
 }
 
 export function getApplicants(id) {
   return axios.get(
-    `http://scouter.point876solutions.com/application/get-applicants-per-job?job=${id}&status=ALL`
+    `https://scouter.point876solutions.com/application/get-applicants-per-job?job=${id}&status=ALL`
   );
 }
 
 export function postJob(company, values) {
   return axios
-    .post(`http://scouter.point876solutions.com/jobPosting/${company}`, values)
+    .post(`https://scouter.point876solutions.com/jobPosting/${company}`, values)
     .then((resp) => resp.data);
 }
 
@@ -91,14 +91,14 @@ export function addCompany(values) {
 
   return axios({
     method: 'POST',
-    url: 'http://scouter.point876solutions.com/company',
+    url: 'https://scouter.point876solutions.com/company',
     data: values,
   }).then((resp) => resp.data);
 }
 
 export function getApplicationDetails(personId) {
   return axios.get(
-    `http://scouter.point876solutions.com/application/${personId}?type=applications`
+    `https://scouter.point876solutions.com/application/${personId}?type=applications`
   );
 }
 
@@ -107,7 +107,7 @@ export function uploadDocument(file, applicantId, applicationId) {
   data.append('files', file);
 
   return axios.post(
-    `http://scouter.point876solutions.com/document/upload-files/${applicantId}/${applicationId}`,
+    `https://scouter.point876solutions.com/document/upload-files/${applicantId}/${applicationId}`,
     data,
     {
       headers: {

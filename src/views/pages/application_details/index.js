@@ -23,7 +23,9 @@ export default function ApplicationDetailsPage() {
 
   useEffect(() => {
     axios
-      .get(`http://scouter.point876solutions.com/application/get-details/${id}`)
+      .get(
+        `https://scouter.point876solutions.com/application/get-details/${id}`
+      )
       .then((resp) => resp.data)
       .then((data) => {
         const [company, jobApplication] = data;

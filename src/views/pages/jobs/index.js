@@ -9,7 +9,7 @@ function JobsPage() {
 
   useEffect(() => {
     fetch(
-      `http://scouter.point876solutions.com/applicant/dashboard/${applicantId}`
+      `https://scouter.point876solutions.com/applicant/dashboard/${applicantId}`
     )
       .then((resp) => resp.json())
       .then((data) => (Array.isArray(data) ? setJobs(data) : ''))

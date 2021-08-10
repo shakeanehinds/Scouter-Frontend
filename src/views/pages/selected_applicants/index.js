@@ -11,7 +11,7 @@ export default function SelectedApplicants() {
     async function fetchData() {
       try {
         const response = await fetch(
-          `http://scouter.point876solutions.com/application/selected-applicants/1`
+          `https://scouter.point876solutions.com/application/selected-applicants/1`
         );
         const json = await response.json();
         setAcceptedApplicants(json);

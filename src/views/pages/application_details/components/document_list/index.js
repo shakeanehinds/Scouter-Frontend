@@ -70,7 +70,7 @@ export default function DocumentList({ jobApplication }) {
               </div>
 
               <a
-                href={`http://scouter.point876solutions.com/application/download-file?path=${doc.path}&key=${doc.url}`}
+                href={`https://scouter.point876solutions.com/application/download-file?path=${doc.path}&key=${doc.url}`}
               >
                 <button
                   className={
