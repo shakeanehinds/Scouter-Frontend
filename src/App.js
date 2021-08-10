@@ -12,6 +12,7 @@ import ApplicationsListPage from './views/pages/applications_list';
 import ApplicationDetailsPage from './views/pages/application_details';
 import SelectedApplicants from './views/pages/selected_applicants';
 import Home from './views/pages/home';
+import ApplicantSignup from './views/pages/applicant-signup';
 function App() {
   const [companies, setCompanies] = useState([]);
 
@@ -32,6 +33,9 @@ function App() {
 
         <Route path={'/jobs/:applicantId'}>
           <JobsPage />
+        </Route>
+        <Route path={'/applicant'}>
+          <ApplicantSignup />
         </Route>
 
         <Route path={'/companies'}>
