@@ -1,26 +1,22 @@
+import DateFnsUtils from '@date-io/date-fns';
+import { InputLabel, MenuItem } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Stepper from '@material-ui/core/Stepper';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { MenuItem } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider
 } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import React from 'react';
-import { Controller, useForm } from "react-hook-form";
 import {
     NAME_REGEX, SAFE_STRING_REGEX, TRN_REGEX
 } from '../../../utils/validators';
-import { ContactSupportOutlined } from '@material-ui/icons';
+import { signupAsApplicant } from '../../../api/main-api';
+
 
 const NATIONALITIES_LIST = [
     "Afghan",
@@ -305,18 +301,69 @@ const steps = ['Personal Details', 'Employment History', 'Education'];
 
 
 export const ApplicantSignup = () => {
-    const { control, handleSubmit } = useForm();
+
     const onSubmit = (values, e) => {
         //e.preventDefault();
-        //document.getElementById('applicantSignupForm').submit()
+
         console.log('submit values ', values);
     }
+
     const onError = (errors, e) => console.log(errors, e);
 
     const [formValues, setFormValues] = React.useState({});
 
     const classes = useStyles();
 
+    const [fname, setFname] = React.useState("");
+    const updateFname = (event) => {
+
+        setFname(event.target.value);
+    }
+
+    const [lname, setLname] = React.useState("");
+    const updateLname = (event) => {
+
+        setLname(event.target.value);
+    }
+
+    const [mName, setMname] = React.useState("");
+    const updateMname = (event) => {
+
+        setMname(event.target.value);
+    }
+
+    const [taxRegistrationNumber, settaxRegistrationNumber] = React.useState("");
+    const updateTaxRegistrationNumber = (event) => {
+
+        settaxRegistrationNumber(event.target.value);
+    }
+
+    const [streetNumber, setStreetNumber] = React.useState("");
+    const updateStreetNumber = (event) => {
+
+        setStreetNumber(event.target.value);
+    }
+
+    const [streetName, setStreetName] = React.useState("");
+    const updateStreetName = (event) => {
+
+        setStreetName(event.target.value);
+    }
+
+    const [parish, setParish] = React.useState("");
+    const updateParish = (event) => {
+        setParish(event.target.value);
+    }
+
+    const [city, setCity] = React.useState("");
+    const updateCity = (event) => {
+        setCity(event.target.value);
+    }
+
+    const [country, setCountry] = React.useState("");
+    const updateCountry = (event) => {
+        setCountry(event.target.value);
+    }
 
 
     const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -442,10 +489,64 @@ export const ApplicantSignup = () => {
         0: "",
         1: ""
     });
-    const updateComments = (event) => {
-
-        setComments(event.target.value);
+    const updateComments = (event, id) => {
+        const poi = { ...comments };
+        poi[id] = event.target.value;
+        setComments(poi);
     }
+
+    const handleSubmit = (e) => {
+        const form = document.getElementById('applicantSignupForm');
+        const formData = new FormData(form);
+        console.log(formData);
+        const applicant = {
+            "firstName": fname ?? null,
+            "lastName": lname ?? null,
+            "middleName": mName ?? null,
+            "dateOfBirth": selectedDate ?? null,
+            "nationality": nationality ?? null,
+            "taxRegistrationNumber": taxRegistrationNumber ?? null,
+            "applicantAddress": [{
+                "addressType": "MAILING",
+                "streetNumber": streetNumber ?? null,
+                "streetName": streetName ?? null,
+                "city": city ?? null,
+                "parish": parish ?? null,
+                "county": null,
+                "country": country ?? null
+            }],
+            "employmentProfile": {
+                "listOfEmployment": [{
+                    "placeOfEmployment": placeOfEmployments[0] ?? null,
+                    "employmentType": employmentTypes[0] ?? null,
+                    "employmentStartDate": employmentStartDates[0] ?? null,
+                    "employmentEndDate": employmentEndDates[0] ?? null,
+                    "remarks": comments[0] ?? null
+                }],
+                "employmentStatus": empStatus ?? null
+
+            },
+            "eductionProfile": {
+                "listOfEducation": [
+                    {
+                        "level": setEducationLevels[0] ?? null,
+                        "institution": institutions[0] ?? null,
+                        "attainment": educationAttainmentss[0] ?? null,
+                        "startDate": educationStartDates[0] ?? null,
+                        "endDate": educationEndDates[0] ?? null
+                    }
+                ]
+
+            },
+            "prospectiveJob": propectiveEmpType ?? null,
+            "photUrl": null,
+            "documents": null,
+            "skillProfile": "",
+        }
+        signupAsApplicant(applicant);
+
+    }
+
 
 
     const validateName = (value) => {
@@ -472,7 +573,7 @@ export const ApplicantSignup = () => {
                     <Typography component="h1" variant="h4" align="center">
                         Signup as an Applicant
                     </Typography>
-                    <form id='applicantSignupForm' onSubmit={handleSubmit(onSubmit, onError)} encType="application/x-www-form-urlencoded">
+                    <form id='applicantSignupForm' encType="application/x-www-form-urlencoded">
                         <React.Fragment key={"Personal Details"}>
 
                             <Typography variant="h6" gutterBottom>
@@ -486,6 +587,8 @@ export const ApplicantSignup = () => {
                                         label="First name"
                                         fullWidth
                                         required
+                                        value={fname}
+                                        onChange={(value) => updateFname(value)}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
@@ -494,6 +597,8 @@ export const ApplicantSignup = () => {
                                         label="Middle name"
                                         fullWidth
                                         name="middleName"
+                                        value={mName}
+                                        onChange={(value) => updateMname(value)}
                                     />
 
                                 </Grid>
@@ -504,6 +609,8 @@ export const ApplicantSignup = () => {
                                         label="Last name"
                                         fullWidth
                                         name="lastName"
+                                        value={lname}
+                                        onChange={(value) => updateLname(value)}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -524,7 +631,7 @@ export const ApplicantSignup = () => {
 
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <InputLabel id="nationality">Nationality</InputLabel>
+                                    <InputLabel id="nationality">Nationality*</InputLabel>
                                     <Select
                                         required
                                         labelId="nationality"
@@ -547,6 +654,8 @@ export const ApplicantSignup = () => {
                                         label="Tax Registration Number / Social Security Number"
                                         fullWidth
                                         name="trn"
+                                        value={taxRegistrationNumber}
+                                        onChange={(value) => updateTaxRegistrationNumber(value)}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -558,6 +667,8 @@ export const ApplicantSignup = () => {
                                         fullWidth
 
                                         name="streetNumber"
+                                        value={streetNumber}
+                                        onChange={(value) => updateStreetNumber(value)}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -565,6 +676,8 @@ export const ApplicantSignup = () => {
                                         label="Address line 2"
                                         fullWidth
                                         name="streetName"
+                                        value={streetName}
+                                        onChange={(value) => updateStreetName(value)}
 
                                     />
                                 </Grid>
@@ -574,6 +687,8 @@ export const ApplicantSignup = () => {
                                         id="city"
                                         label="City"
                                         fullWidth
+                                        value={city}
+                                        onChange={(value) => updateCity(value)}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -582,6 +697,8 @@ export const ApplicantSignup = () => {
                                         label="Parish"
                                         fullWidth
                                         required
+                                        value={parish}
+                                        onChange={(value) => updateParish(value)}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -590,6 +707,8 @@ export const ApplicantSignup = () => {
                                         label="Country"
                                         fullWidth
                                         required
+                                        value={country}
+                                        onChange={(value) => updateCountry(value)}
                                     />
                                 </Grid>
 
@@ -615,7 +734,7 @@ export const ApplicantSignup = () => {
 
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
-                                    <InputLabel id="employmentStatus">Current Employment Status</InputLabel>
+                                    <InputLabel id="employmentStatus">Current Employment Status*</InputLabel>
                                     <Select
                                         required
                                         id="employmentStatus"
@@ -645,7 +764,7 @@ export const ApplicantSignup = () => {
                                 </Grid>
 
                                 <Grid item xs={12} sm={6}>
-                                    `<InputLabel id="employmentType">Employment Type</InputLabel>`
+                                    `<InputLabel id="employmentType">Employment Type*</InputLabel>`
                                     <Select
                                         required
                                         onChange={(value) => handleEmploymentTypeChange(value, 0)}
@@ -717,7 +836,7 @@ export const ApplicantSignup = () => {
                                 </Grid>
                                 <Grid item xs={12} sm={12}>
                                     <TextField
-                                        required
+
                                         name="placeOfEmployment"
                                         id="placeOfEmployment"
                                         label="Place of Employment"
@@ -730,7 +849,7 @@ export const ApplicantSignup = () => {
                                 <Grid item xs={12} sm={6}>
                                     <InputLabel id="employmentType">Employment Type</InputLabel>
                                     <Select
-                                        required
+
                                         onChange={(value) => handleEmploymentTypeChange(value, 1)}
                                         id="employmentType"
                                         name="employmentType"
@@ -748,7 +867,7 @@ export const ApplicantSignup = () => {
 
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
-                                            required
+
                                             name="employmentStartDate"
                                             margin="normal"
                                             id="1"
@@ -767,7 +886,7 @@ export const ApplicantSignup = () => {
 
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
-                                            required
+
                                             name="employmentEndDate"
                                             margin="normal"
                                             id="1"
@@ -788,7 +907,7 @@ export const ApplicantSignup = () => {
                                         id="comment"
                                         label="Comment"
                                         fullWidth
-                                        required
+
                                         value={comments[1]}
                                         onChange={(value) => updateComments(value, 1)}
                                     />
@@ -838,7 +957,7 @@ export const ApplicantSignup = () => {
                                 </Grid>
 
                                 <Grid item xs={12} sm={6}>
-                                    <InputLabel id="attainment">Award Conferred</InputLabel>
+                                    <InputLabel id="attainment">Award Conferred*</InputLabel>
                                     <Select
                                         required
                                         id="attainment"
@@ -898,7 +1017,7 @@ export const ApplicantSignup = () => {
                                 <Grid item xs={12} sm={6}>
                                     <InputLabel id="educationLevel">Highest Education Level</InputLabel>
                                     <Select
-                                        required
+
                                         name="educationLevel"
                                         id="education Level"
                                         labelId="educationLevel"
@@ -915,7 +1034,7 @@ export const ApplicantSignup = () => {
 
                                     <TextField
                                         name="institution"
-                                        required
+
                                         id="institution"
                                         label="Institution"
                                         fullWidth
@@ -928,7 +1047,7 @@ export const ApplicantSignup = () => {
                                 <Grid item xs={12} sm={6}>
                                     <InputLabel id="attainment">Award Conferred</InputLabel>
                                     <Select
-                                        required
+
                                         id="attainment"
                                         labelId="attainment"
 
@@ -945,7 +1064,7 @@ export const ApplicantSignup = () => {
                                 <Grid item xs={12}>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
-                                            required
+
                                             margin="normal"
                                             id="1"
                                             label="Start Date"
@@ -965,7 +1084,7 @@ export const ApplicantSignup = () => {
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
                                             name="educationEndDate"
-                                            required
+
                                             margin="normal"
                                             id="1"
                                             label="End Date"
@@ -1004,10 +1123,14 @@ export const ApplicantSignup = () => {
                                     color="primary"
                                     type="submit"
                                     className={classes.button}
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        handleSubmit(e);
+                                    }}
                                 >  Complete Signup
                                 </Button>
                             </div>
-                        </React.Fragment>*
+                        </React.Fragment>
                     </form>
                 </Paper>
             </main>
