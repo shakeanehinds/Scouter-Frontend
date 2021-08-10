@@ -26,7 +26,7 @@ export default function CompanyDetails() {
             <Link to={`/companies`}>
               <div className="cursor-pointer flex items-center">
                 <Back />
-                <a>Back</a>
+                <p>Back</p>
               </div>
             </Link>
             <Link to={`/job-posting/${company.id}`}>

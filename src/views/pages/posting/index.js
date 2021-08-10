@@ -27,7 +27,7 @@ export default function PostingPage() {
       <Link to={`/company-details/${id}`}>
         <div className="cursor-pointer flex items-center">
           <Back />
-          <a>Back</a>
+          <p>Back</p>
         </div>
       </Link>
       <h2 className="text-gray-600 text-3xl font-semibold my-4">

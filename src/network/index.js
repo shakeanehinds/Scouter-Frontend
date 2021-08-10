@@ -75,7 +75,7 @@ export function getCompanyDetails(id) {
 
 export function getApplicants(id) {
   return axios.get(
-    `http://scouter.point876solutions.com/application/get-applicants-per-job?job=${id}&status=OPEN`
+    `http://scouter.point876solutions.com/application/get-applicants-per-job?job=${id}&status=ALL`
   );
 }
 
@@ -94,4 +94,25 @@ export function addCompany(values) {
     url: 'http://scouter.point876solutions.com/company',
     data: values,
   }).then((resp) => resp.data);
+}
+
+export function getApplicationDetails(personId) {
+  return axios.get(
+    `http://scouter.point876solutions.com/application/${personId}?type=applications`
+  );
+}
+
+export function uploadDocument(file, applicantId, applicationId) {
+  const data = new FormData();
+  data.append('files', file);
+
+  return axios.post(
+    `http://scouter.point876solutions.com/document/upload-files/${applicantId}/${applicationId}`,
+    data,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
 }

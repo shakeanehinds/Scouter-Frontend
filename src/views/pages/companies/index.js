@@ -17,16 +17,17 @@ export default function CompaniesPage({ companies }) {
         >
           <div className="flex items-center mt-4">
             <Back />
-            <a>Back</a>
+            <p>Back</p>
           </div>
         </Link>
         <h2 className={'text-3xl text-gray-700 font-bold my-10'}>
           List of Companies
         </h2>
-
-        {companies.map((company) => {
-          return <CompanyCard key={company.id} company={company} />;
-        })}
+        <div className="grid grid-col grid-cols-3 grid-flow-row grid-rows-3 gap-4">
+          {companies.map((company) => {
+            return <CompanyCard key={company.id} company={company} />;
+          })}
+        </div>
       </div>
     </>
   );

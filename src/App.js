@@ -8,7 +8,10 @@ import CompaniesPage from './views/pages/companies';
 import CompanyDetails from './views/pages/company_details';
 import PostingPage from './views/pages/posting';
 import AddCompanyPage from './views/pages/add_company';
-
+import ApplicationsListPage from './views/pages/applications_list';
+import ApplicationDetailsPage from './views/pages/application_details';
+import SelectedApplicants from './views/pages/selected_applicants';
+import Home from './views/pages/home';
 function App() {
   const [companies, setCompanies] = useState([]);
 
@@ -26,6 +29,11 @@ function App() {
         <Route path={'/admin'}>
           <AdminHome />
         </Route>
+
+        <Route path={'/'}>
+          <Home />
+        </Route>
+
         <Route path={'/jobs'}>
           <JobsPage />
         </Route>
@@ -44,6 +52,18 @@ function App() {
 
         <Route path={'/add-company'}>
           <AddCompanyPage />
+        </Route>
+
+        <Route path={'/applications-list/:personId'}>
+          <ApplicationsListPage />
+        </Route>
+
+        <Route path={'/application-details/:id'}>
+          <ApplicationDetailsPage />
+        </Route>
+
+        <Route path={'/selected-applicants/:id'}>
+          <SelectedApplicants />
         </Route>
       </Switch>
     </Router>

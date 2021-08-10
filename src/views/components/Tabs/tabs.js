@@ -45,10 +45,10 @@ const Tabs = ({ color, radar, table }) => {
                 href="#link2"
                 role="tablist"
               >
-                Compare
+                Table
               </a>
             </li>
-            <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            {/* <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
               <a
                 className={
                   'text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal ' +
@@ -66,20 +66,20 @@ const Tabs = ({ color, radar, table }) => {
               >
                 Table
               </a>
-            </li>
+            </li> */}
           </ul>
           <div className="relative flex h-4/5 flex-col min-w-0 break-words  w-full mb-6 rounded">
-            <div className="px-4 py-5 h-4/5 flex-auto">
+            <div className="px-1 py-2 h-4/5 flex-auto">
               <div className="tab-content h-4/5 tab-space">
                 <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
                   <div className="w-full h-5/6">{radar}</div>
                 </div>
                 <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
-                  <div className="w-full h-5/6 bg-red-50">
-                    <div className="h-96 overflow-y-scroll">{table}</div>
+                  <div className="w-full h-full">
+                    <div className="h-full pb-4">{table}</div>
                   </div>
                 </div>
-                <div className={openTab === 3 ? 'block' : 'hidden'} id="link3">
+                {/* <div className={openTab === 3 ? 'block' : 'hidden'} id="link3">
                   <div className=" h-5/6 w-full">
                     Completely synergize resource taxing relationships via
                     premier niche markets. Professionally cultivate one-to-one
@@ -89,7 +89,7 @@ const Tabs = ({ color, radar, table }) => {
                     Dynamically innovate resource-leveling customer service for
                     state of the art customer service.
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

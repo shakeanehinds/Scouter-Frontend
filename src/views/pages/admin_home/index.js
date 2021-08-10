@@ -11,6 +11,7 @@ import { FaArrowRight as Next } from 'react-icons/fa';
 
 const AdminHome = () => {
   const [posts, setPosts] = useState([]);
+  const [radarData, setRadarData] = useState([]);
   const [sortedField, setSortedField] = useState(null);
   const [applicants, setApplicants] = useState([]);
   const [selectedApplicants, setSelectedApplicants] = useState([]);
@@ -148,11 +149,13 @@ const AdminHome = () => {
                 Support FAQ
               </p>
             </a>
-            <a href="#" class="px-4 py-2 pb-4 hover:bg-gray-100 flex">
-              <p class="text-sm font-medium text-gray-800 leading-none">
-                Logout
-              </p>
-            </a>
+            <Link to={`/recruiters`}>
+              <div class="px-4 py-2 pb-4 hover:bg-gray-100 flex">
+                <p class="text-sm font-medium text-gray-800 leading-none">
+                  Logout
+                </p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -165,6 +168,21 @@ const AdminHome = () => {
           <Radar
             data={data}
             options={{
+              scales: {
+                r: {
+                  grid: {
+                    color: ['rgba(0,0,0,0.3)'],
+                  },
+                  pointLabels: {
+                    font: {
+                      size: 15,
+                    },
+                  },
+                  angleLines: {
+                    color: 'rgba(0,0,0,0.3)',
+                  },
+                },
+              },
               interaction: {
                 mode: 'index',
               },
@@ -173,6 +191,7 @@ const AdminHome = () => {
                   display: true,
                 },
                 tooltip: {
+                  titleMarginBottom: 20,
                   usePointStyle: true,
                   backgroundColor: 'rgba(255, 255, 255, 1)',
                   titleColor: 'rgba(0, 0, 0, 1)',
@@ -183,6 +202,7 @@ const AdminHome = () => {
                 legend: {
                   labels: {
                     font: {
+                      weight: 'bold',
                       size: 20,
                       lineHeight: '30',
                     },
@@ -196,27 +216,6 @@ const AdminHome = () => {
 
               responsive: true,
               maintainAspectRatio: true,
-              // scale: {
-              //   gridLines: {
-              //     circular: true,
-              //   },
-              //   reverse: false,
-              //   gridLines: {
-              //     color: [
-              //       'black',
-              //       'red',
-              //       'orange',
-              //       'yellow',
-              //       'green',
-              //       'blue',
-              //       'indigo',
-              //       'violet',
-              //     ],
-              //   },
-              //   ticks: {
-              //     beginAtZero: true,
-              //   },
-              // },
             }}
           />
         </div>
@@ -225,14 +224,14 @@ const AdminHome = () => {
   };
 
   const table = function (applicants) {
+    console.log(applicants);
     let sortedApplicants = [...applicants];
-
     if (sortedField !== null) {
       sortedApplicants.sort((a, b) => {
-        if (a[sortedField] < b[sortedField]) {
+        if (a.applicant[sortedField] < b.applicant[sortedField]) {
           return -1;
         }
-        if (a[sortedField] > b[sortedField]) {
+        if (a.applicant[sortedField] > b.applicant[sortedField]) {
           return 1;
         }
         return 0;
@@ -244,34 +243,43 @@ const AdminHome = () => {
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
           <div class="w-full overflow-x-auto">
             <table class="w-full sortable">
-              <thead>
-                <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+              <thead class="w-full flex justify-between">
+                <tr class="flex w-full justify-between text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase  border-gray-600">
                   <th
                     onClick={() => setSortedField('firstName')}
-                    class="px-4 py-3 cursor-pointer"
+                    class="px-4 py-3 cursor-pointer w-2/5"
                   >
                     Name
                   </th>
                   <th
                     onClick={() => setSortedField('experience')}
-                    class="px-4 py-3"
+                    class="px-4 py-3 w-1/4"
                   >
                     Exp (yrs)
                   </th>
-                  <th class="px-4 py-3">Education</th>
+                  <th class="px-4 py-3 w-1/4">Education</th>
                   <th
                     onClick={() => setSortedField('status')}
-                    class="px-4 py-3 cursor-pointer"
+                    class="px-4 py-3 cursor-pointer w-1/4"
                   >
                     Status
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white">
+              <tbody
+                className="flex w-full justify-between  flex-col overflow-y-scroll"
+                style={{ height: '65vh' }}
+              >
                 {sortedApplicants.map(function (applicant, index) {
                   return (
-                    <tr class="text-gray-700">
-                      <td class="px-4 py-3 border">
+                    <tr
+                      key={index}
+                      class="text-gray-700 flex w-full justify-between"
+                    >
+                      <td
+                        class="px-4 w-2/5 py-3"
+                        style={{ borderWidth: '0.5px' }}
+                      >
                         <div class="flex items-center text-sm">
                           <div class="relative w-8 h-8 mr-3 rounded-full md:block">
                             <img
@@ -287,17 +295,29 @@ const AdminHome = () => {
                           </div>
                           <div>
                             <p class="font-semibold text-black">
-                              {applicant.firstName} {applicant.lastName}
+                              {applicant.applicant.firstName}{' '}
+                              {applicant.applicant.lastName}
                             </p>
                             <p class="text-xs text-gray-600 lowercase">
-                              {applicant.employmentProfile.employmentStatus}
+                              {
+                                applicant.applicant.employmentProfile
+                                  .employmentStatus
+                              }
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td class="px-4 py-3 text-ms font-semibold border">22</td>
-                      <td class="px-4 py-3 text-xs border">
-                        {applicant.eductionProfile.listOfEducation.map(
+                      <td
+                        class="px-4 w-1/4 py-3 text-ms font-semibold"
+                        style={{ borderWidth: '0.5px' }}
+                      >
+                        {Math.floor(applicant.cumulativeJobExperience / 12)}
+                      </td>
+                      <td
+                        class="px-4 w-1/4 py-3 text-xs"
+                        style={{ borderWidth: '0.5px' }}
+                      >
+                        {applicant.applicant.eductionProfile.listOfEducation.map(
                           function (education, index) {
                             return (
                               <span
@@ -310,8 +330,11 @@ const AdminHome = () => {
                           }
                         )}
                       </td>
-                      <td class="px-4 py-3 text-sm border">
-                        {applicant.applicantStatus}
+                      <td
+                        class="px-4 w-1/4 py-3 text-sm"
+                        style={{ borderWidth: '0.5px' }}
+                      >
+                        {applicant.applicant.applicantStatus}
                       </td>
                     </tr>
                   );
@@ -323,56 +346,57 @@ const AdminHome = () => {
       </section>
     );
   };
-
+  const colors = [
+    'rgba(0,108,132',
+    'rgba(255,99,32',
+    'rgba(52,163,15',
+    'rgba(155, 19, 132',
+  ];
+  const symbols = [
+    'circle',
+    'cross',
+    'crossRot',
+    'line',
+    'rect',
+    'rectRounded',
+    'rectRot',
+    'star',
+    'triangle',
+  ];
+  const test = [
+    {
+      label: 'Shakeane',
+      data: [2, 4, 3],
+      backgroundColor: 'rgba(0, 108, 132, 0.2)',
+      borderColor: 'rgba(0, 108, 132, 1)',
+      borderWidth: 2,
+      pointStyle: 'rectRot',
+      pointRadius: 8,
+    },
+    {
+      label: 'Jason',
+      data: [0, 4, 6],
+      backgroundColor: 'rgba(255, 99, 32, 0.2)',
+      borderColor: 'rgba(155, 19, 132, 1)',
+      borderWidth: 2,
+      pointStyle: 'circle',
+      pointRadius: 8,
+    },
+    {
+      label: 'Alex',
+      data: [5, 3, 5],
+      backgroundColor: 'rgba(52,163,15, 0.2)',
+      borderColor: 'rgba(52,163,15,1)',
+      borderWidth: 2,
+      pointStyle: 'crossRot',
+      pointRadius: 8,
+    },
+  ];
   const data = {
     labels: ['Education', 'Skills Matched', 'Work Experience'],
-    datasets: [
-      {
-        label: 'Shakeane',
-        data: [2, 4, 3],
-        backgroundColor: 'rgba(0, 108, 132, 0.2)',
-        borderColor: 'rgba(0, 108, 132, 1)',
-        borderWidth: 2,
-        pointStyle: 'star',
-        pointRadius: 8,
-      },
-      {
-        label: 'Jason',
-        data: [0, 4, 6],
-        backgroundColor: 'rgba(255, 99, 32, 0.2)',
-        borderColor: 'rgba(255, 99, 32, 1)',
-        borderWidth: 2,
-        pointStyle: 'circle',
-        pointRadius: 8,
-      },
-    ],
+    datasets: radarData,
   };
 
-  const options = {
-    responsive: true,
-    maintainAspectRatio: true,
-    scale: {
-      gridLines: {
-        circular: true,
-      },
-      reverse: false,
-      gridLines: {
-        color: [
-          'black',
-          'red',
-          'orange',
-          'yellow',
-          'green',
-          'blue',
-          'indigo',
-          'violet',
-        ],
-      },
-      ticks: {
-        beginAtZero: true,
-      },
-    },
-  };
   useEffect(() => {
     async function fetchData() {
       try {
@@ -387,8 +411,58 @@ const AdminHome = () => {
     }
     fetchData();
   }, []);
+  const stripDuplicates = function (originalArray, prop) {
+    var newArray = [];
+    var lookupObject = {};
 
-  const getApplications = async function (id) {
+    for (var i in originalArray) {
+      lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
+
+    for (i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+    return newArray;
+  };
+  const submit = function (data) {};
+  const handleCheck = function (applicant, e) {
+    var temp;
+    let color = colors[Math.floor(Math.random() * colors.length)];
+    let symbol = symbols[Math.floor(Math.random() * symbols.length)];
+
+    setSelectedApplicants([...selectedApplicants, applicant.applicant]);
+
+    console.log(selectedApplicants, applicant);
+    // var res = stripDuplicates(selectedApplicants, 'taxRegistrationNumber');
+    // console.log(res);
+    // setSelectedApplicants([...res]);
+
+    if (radarData.length >= 4) {
+      temp = radarData.slice(1);
+    } else {
+      temp = radarData;
+    }
+    setRadarData([
+      ...temp,
+      {
+        label:
+          applicant.applicant.firstName + ' ' + applicant.applicant.lastName,
+        data: [
+          applicant.numberOfEducationAttainment,
+          applicant.numberOfSkillsMatched,
+          Math.floor(applicant.cumulativeJobExperience / 12),
+        ],
+        backgroundColor: color + ',0.2)',
+        borderColor: color + ')',
+        borderWidth: 2,
+        pointStyle: symbol,
+        pointRadius: 8,
+      },
+    ]);
+    console.log('radaaaar', radarData);
+  };
+
+  const getApplications = function (id) {
     try {
       getApplicants(id)
         .then((resp) => resp.data)
@@ -418,7 +492,7 @@ const AdminHome = () => {
                   <div
                     onClick={() => setSelectedPosts(post)}
                     key={index}
-                    className="hover:border-yellow-500 border-transparent transition-colors duration-500 ease-in-out border-2 cursor-pointer w-11/12 h-max rounded-md bg-white p-3 my-2"
+                    className="hover:bg-gray-100 border-transparent transition-colors duration-500 ease-in-out border-2 cursor-pointer w-11/12 h-max rounded-md bg-white p-3 my-2"
                   >
                     <h1 className=" font-bold text-md mb-2">{post.position}</h1>
                     <div className="flex">
@@ -441,7 +515,7 @@ const AdminHome = () => {
             </div>
           )}
           {selectedPosts !== false && (
-            <div className="relative p-4 flex flex-col flex-grow w-full">
+            <div className="relative rounded-md px-4 py-4 flex flex-col flex-grow w-full bg-gray-100">
               <div
                 onClick={() => getApplications(selectedPosts.id)}
                 // onClick={() => setIsOpen(true)}
@@ -449,39 +523,107 @@ const AdminHome = () => {
               >
                 View Applicants
               </div>
-              <h1 className="font-semibold text-lg mb-2">
-                {selectedPosts.position}
-              </h1>
+              <div className="bg-white rounded-md py-6 w-full px-4 my-2">
+                <h1 className="font-semibold text-lg mb-2">
+                  {selectedPosts.position}
+                </h1>
 
-              <div className="flex">
-                <span className="text-xs font-bold bg-yellow-100 my-2 mx-1 py-1 px-2 rounded text-yellow-500 align-middle">
-                  {selectedPosts.employmentType?.replace('_', ' ')}
-                </span>
-                <span className="text-xs font-medium bg-green-100 my-2 mx-1 py-1 px-2 rounded text-green-500 align-middle">
-                  ${selectedPosts.basicYearlySalary.toLocaleString()}
-                </span>
+                <div className="flex">
+                  <span className="text-xs font-bold bg-yellow-100 my-2 mx-1 py-1 px-2 rounded text-yellow-500 align-middle">
+                    {selectedPosts.employmentType?.replace('_', ' ')}
+                  </span>
+                  <span className="text-xs font-medium bg-green-100 my-2 mx-1 py-1 px-2 rounded text-green-500 align-middle">
+                    ${selectedPosts.basicYearlySalary.toLocaleString()}
+                  </span>
+                </div>
+                <p className="text-gray-600 py-5">
+                  {selectedPosts.description}
+                </p>
               </div>
-              <p className="text-gray-600 py-5">{selectedPosts.description}</p>
-              <h3 className="font-semibold text-md mb-2">Required Skills </h3>
-              <div className="h-1 w-32 bg-green-300 rounded-md"></div>
-              <div className="flex w-full overflow-x-scroll">
-                {selectedPosts.skillRequirements.map(function (skill, index) {
-                  return (
-                    <span
-                      key={index}
-                      className="text-sm font-medium bg-blue-100 my-2 ml-1 py-1 px-2 rounded text-blue-500 align-middle"
-                    >
-                      {skill.skill}
-                    </span>
-                  );
-                })}
+              <div className="bg-white flex flex-col justify-between rounded-md py-6 w-full px-4 my-2">
+                <h3 className="font-semibold text-md mb-2">Required Skills </h3>
+                <div className="h-1 w-32 bg-green-300 rounded-md"></div>
+                <div className="flex w-full overflow-x-scroll">
+                  {selectedPosts.skillRequirements.map(function (skill, index) {
+                    return (
+                      <div
+                        key={index}
+                        className="text-sm font-medium bg-blue-100 mt-4 ml-1 py-1 px-2 rounded text-blue-500 align-middle flex items-center w-max"
+                      >
+                        {skill.isRequired ? (
+                          <strong className="mr-1">* </strong>
+                        ) : (
+                          ''
+                        )}
+                        {skill.skill.replace(' ', '-')}
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-xs text-gray-500 mt-4 p-2 font-bold">
+                  * - required
+                </p>
+              </div>
+              <div className="flex h-full mb-2 justify-between">
+                <div className="bg-white rounded-md py-6 w-96 h-full px-4 mt-3">
+                  <h3 className="font-semibold text-md mb-2">
+                    Required Education{' '}
+                  </h3>
+                  <div className="h-1 w-32 bg-green-300 rounded-md"></div>
+
+                  <div className="flex h-max mt-3 justify-between ">
+                    {selectedPosts.educationRequirements.map(function (
+                      education,
+                      index
+                    ) {
+                      return (
+                        <div className="flex flex-col justify-between h-full">
+                          <div className="p-2 text-gray-600">
+                            {education.description}
+                          </div>
+                          <div
+                            key={index}
+                            className="text-xs font-medium bg-blue-100 my-2 ml-1 py-1 px-2 rounded text-blue-500 align-middle w-max"
+                          >
+                            {education.requiredAttainment}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="bg-white rounded-md py-6 w-full ml-3 h-full px-4 mt-3">
+                  <h3 className="font-semibold text-md mb-2">Stages </h3>
+                  <div className="h-1 w-32 bg-green-300 rounded-md"></div>
+
+                  <div className="flex h-max mt-3  overflow-x-scroll">
+                    {selectedPosts.stages.map(function (stage, index) {
+                      return (
+                        <div className="flex items-center justify-around mr-3">
+                          <div className="flex flex-col justify-between h-full">
+                            <div className="p-2 text-gray-600 font-semibold">
+                              {stage.stageName}
+                            </div>
+                            <div
+                              key={index}
+                              className="text-xs font-medium bg-blue-100 my-2 ml-1 py-1 px-2 rounded  align-middle w-60"
+                            >
+                              {stage.stageDescription}
+                            </div>
+                          </div>
+                          {/* <Next className="ml-3" /> */}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           )}
         </section>
         {isOpen && (
           <div className="absolute bottom-0 right-0 w-screen h-screen bg-white overflow-y-hidden">
-            <div className="relative w-full h-full">
+            <div className={`relative w-full h-full`}>
               <div
                 onClick={() => setIsOpen(false)}
                 className="absolute w-max flex justify-start pl-6 pt-6 cursor-pointer text-red-600 font-bold"
@@ -494,22 +636,98 @@ const AdminHome = () => {
                     <h3 className="text-xl font-semibold text-left">
                       {selectedPosts.position}
                     </h3>
-                    <button
-                      onClick={() => console.log(selectedApplicants)}
-                      className="border border-green-600 bg-green-600 text-white rounded-sm font-bold py-1 px-4 shadow-md flex items-center"
+                    <Link
+                      to={{
+                        pathname: `/selected-applicants/${selectedPosts.id}`,
+                        state: { applicants: selectedApplicants },
+                      }}
                     >
-                      Next page
-                      <Next />
-                    </button>
+                      <button
+                        onClick={() =>
+                          console.log(
+                            stripDuplicates(
+                              selectedApplicants,
+                              'taxRegistrationNumber'
+                            )
+                          )
+                        }
+                        className="border border-green-600 bg-green-600 text-white rounded-sm font-bold py-1 px-4 shadow-md flex items-center"
+                      >
+                        Next page
+                        <Next />
+                      </button>
+                    </Link>
                   </div>
                   <Tabs
                     color="green"
-                    radar={radar(data)}
+                    radar={
+                      <div className="flex items-center justify-center w-full h-full bg-white">
+                        <div className=" w-4/6 h-96">
+                          <Radar
+                            data={{
+                              labels: [
+                                'Education',
+                                'Skills Matched',
+                                'Experience (yrs)',
+                              ],
+                              datasets: radarData,
+                            }}
+                            options={{
+                              scales: {
+                                r: {
+                                  grid: {
+                                    color: ['rgba(0,0,0,0.3)'],
+                                  },
+                                  pointLabels: {
+                                    font: {
+                                      size: 15,
+                                    },
+                                  },
+                                  angleLines: {
+                                    color: 'rgba(0,0,0,0.3)',
+                                  },
+                                },
+                              },
+                              interaction: {
+                                mode: 'index',
+                              },
+                              plugins: {
+                                title: {
+                                  display: true,
+                                },
+                                tooltip: {
+                                  titleMarginBottom: 20,
+                                  usePointStyle: true,
+                                  backgroundColor: 'rgba(255, 255, 255, 1)',
+                                  titleColor: 'rgba(0, 0, 0, 1)',
+                                  bodyColor: 'rgba(0, 0, 0, 1)',
+                                  bodySpacing: 10,
+                                  padding: 10,
+                                },
+                                legend: {
+                                  labels: {
+                                    font: {
+                                      weight: 'bold',
+                                      size: 20,
+                                      lineHeight: '30',
+                                    },
+                                    usePointStyle: true,
+                                  },
+                                },
+                              },
+
+                              responsive: true,
+                              maintainAspectRatio: true,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    }
                     table={table(applicants)}
                   />
                 </div>
                 <div className="w-96 h-full bg-gray-50 flex flex-col items-center pt-2 overflow-y-scroll">
-                  {applicants !== [] &&
+                  {applicants.length !== 0 &&
                     applicants.map(function (applicant, index) {
                       return (
                         <div
@@ -518,24 +736,26 @@ const AdminHome = () => {
                         >
                           <div className="mb-3">
                             <input
-                              onClick={() =>
-                                setSelectedApplicants([
-                                  ...selectedApplicants,
-                                  applicant,
-                                ])
-                              }
+                              onClick={() => handleCheck(applicant)}
                               type="checkbox"
                               className="mr-2 border-gray-600"
                             ></input>
-                            {applicant.firstName} {applicant.lastName}
+                            {applicant.applicant.firstName}{' '}
+                            {applicant.applicant.lastName}
                           </div>
                           <div className="mb-2 uppercase text-sm font-semibold border-gray-300 border-b">
                             Skills
                           </div>
                           <div className="w-full flex flex-col my-4">
-                            {applicant.skillList.map(function (skill, index) {
+                            {applicant.applicant.skillList.map(function (
+                              skill,
+                              index
+                            ) {
                               return (
-                                <p className=" w-full mr-3  text-xs font-semibold">
+                                <p
+                                  key={index}
+                                  className=" w-full mr-3  text-xs font-semibold"
+                                >
                                   {skill}
                                 </p>
                               );
