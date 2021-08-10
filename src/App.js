@@ -30,11 +30,7 @@ function App() {
           <AdminHome />
         </Route>
 
-        <Route path={'/'}>
-          <Home />
-        </Route>
-
-        <Route path={'/jobs'}>
+        <Route path={'/jobs/:applicantId'}>
           <JobsPage />
         </Route>
 
@@ -64,6 +60,9 @@ function App() {
 
         <Route path={'/selected-applicants/:id'}>
           <SelectedApplicants />
+        </Route>
+        <Route path={'/recruiters'}>
+          <Home />
         </Route>
       </Switch>
     </Router>

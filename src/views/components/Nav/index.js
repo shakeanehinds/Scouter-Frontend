@@ -70,9 +70,11 @@ const Nav = () => {
                 </svg>
               </div>
               <div className="pl-3">
-                <p className="text-sm font-medium text-gray-800 leading-none">
-                  Add members
-                </p>
+                <Link to={`/add-company`}>
+                  <p className="text-sm font-medium text-gray-800 leading-none">
+                    Add Company
+                  </p>
+                </Link>
                 <p className="text-xs text-gray-500">
                   Add/manage users &amp; teams
                 </p>
@@ -164,7 +166,7 @@ const Nav = () => {
                 Support FAQ
               </p>
             </a>
-            <Link to={'/'}>
+            <Link to={'/recruiters'}>
               <div href="#" className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
                 <p className="text-sm font-medium text-gray-800 leading-none">
                   Logout
